@@ -66,6 +66,7 @@ class mod_webrtcexperiments_mod_form extends moodleform_mod {
 
         $mform->addElement('text', 'signalingserver', get_string('signalingserver', 'webrtcexperiments'), array('size'=>'64'));
         $mform->setDefault('signalingserver', 'wss://novoaeon.com.br:12034');
+        $mform->setType('signalingserver', PARAM_TEXT);
         $mform->addHelpButton('signalingserver', 'signalingserver', 'webrtcexperiments');
         //-------------------------------------------------------------------------------
         // add standard elements, common to all modules

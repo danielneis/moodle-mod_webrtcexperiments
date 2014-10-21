@@ -38,3 +38,4 @@ $string['pluginname'] = 'WebRTC';
 $string['signalingserver'] = 'Signaling server';
 $string['signalingserver_help'] = "This is the address and port of signaling server. If you don't know what it means, leave as default.";
 $string['webrtcname'] = 'Name';
+$string['webrtcname_help'] = 'Name of the activity that will appear on course page.';
