@@ -22,7 +22,7 @@
  * It is not really essential to know about it, but these logs were created as example
  * in the previous 1.9 NEWMODULE.
  *
- * @package    mod_webrtc
+ * @package    mod_webrtcexperiments
  * @copyright  2014 Daniel Neis Araujo
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,8 +32,8 @@ defined('MOODLE_INTERNAL') || die();
 global $DB;
 
 $logs = array(
-    array('module'=>'webrtc', 'action'=>'add', 'mtable'=>'webrtc', 'field'=>'name'),
-    array('module'=>'webrtc', 'action'=>'update', 'mtable'=>'webrtc', 'field'=>'name'),
-    array('module'=>'webrtc', 'action'=>'view', 'mtable'=>'webrtc', 'field'=>'name'),
-    array('module'=>'webrtc', 'action'=>'view all', 'mtable'=>'webrtc', 'field'=>'name')
+    array('module'=>'webrtcexperiments', 'action'=>'add', 'mtable'=>'webrtcexperiments', 'field'=>'name'),
+    array('module'=>'webrtcexperiments', 'action'=>'update', 'mtable'=>'webrtcexperiments', 'field'=>'name'),
+    array('module'=>'webrtcexperiments', 'action'=>'view', 'mtable'=>'webrtcexperiments', 'field'=>'name'),
+    array('module'=>'webrtcexperiments', 'action'=>'view all', 'mtable'=>'webrtcexperiments', 'field'=>'name')
 );

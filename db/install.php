@@ -19,7 +19,7 @@
  * This file replaces the legacy STATEMENTS section in db/install.xml,
  * lib.php/modulename_install() post installation hook and partially defaults.php
  *
- * @package    mod_webrtc
+ * @package    mod_webrtcexperiments
  * @copyright  2014 Daniel Neis Araujo
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,7 +29,7 @@
  *
  * @see upgrade_plugins_modules()
  */
-function xmldb_webrtc_install() {
+function xmldb_webrtcexperiments_install() {
 }
 
 /**
@@ -37,5 +37,5 @@ function xmldb_webrtc_install() {
  *
  * @see upgrade_plugins_modules()
  */
-function xmldb_webrtc_install_recovery() {
+function xmldb_webrtcexperiments_install_recovery() {
 }

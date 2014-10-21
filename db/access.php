@@ -16,9 +16,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capability definitions for the webrtc module
+ * Capability definitions for the webrtcexperiments module
  *
- * @package    mod_webrtc
+ * @package    mod_webrtcexperiments
  * @copyright  2014 Daniel Neis Araujo
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-    'mod/webrtc:view' => array(
+    'mod/webrtcexperiments:view' => array(
 
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
@@ -39,7 +39,7 @@ $capabilities = array(
         )
     ),
 
-    'mod/webrtc:addinstance' => array(
+    'mod/webrtcexperiments:addinstance' => array(
         'riskbitmask' => RISK_XSS,
 
         'captype' => 'write',

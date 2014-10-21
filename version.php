@@ -17,12 +17,12 @@
 
 
 /**
- * Defines the version of webrtc
+ * Defines the version of webrtcexperiments
  *
  * This code fragment is called by moodle_needs_upgrading() and
  * /admin/index.php
  *
- * @package    mod_webrtc
+ * @package    mod_webrtcexperiments
  * @copyright  2014 Daniel Neis Araujo
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,4 +33,4 @@ defined('MOODLE_INTERNAL') || die();
 $module->version   = 2014102100;      // The current module version (Date: YYYYMMDDXX)
 $module->requires  = 2014042900;      // Requires this Moodle version
 $module->cron      = 0;               // Period for cron to check this module (secs)
-$module->component = 'mod_webrtc'; // To check on upgrade, that module sits in correct place
+$module->component = 'mod_webrtcexperiments'; // To check on upgrade, that module sits in correct place

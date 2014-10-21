@@ -21,12 +21,12 @@
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
  *
- * @package    mod_webrtc
+ * @package    mod_webrtcexperiments
  * @copyright  2014 Daniel Neis Araujo
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/// Replace webrtc with the name of your module and remove this line
+/// Replace webrtcexperiments with the name of your module and remove this line
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
@@ -37,19 +37,19 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
 require_course_login($course);
 
-add_to_log($course->id, 'webrtc', 'view all', 'index.php?id='.$course->id, '');
+add_to_log($course->id, 'webrtcexperiments', 'view all', 'index.php?id='.$course->id, '');
 
 $coursecontext = context_course::instance($course->id);
 
-$PAGE->set_url('/mod/webrtc/index.php', array('id' => $id));
+$PAGE->set_url('/mod/webrtcexperiments/index.php', array('id' => $id));
 $PAGE->set_title(format_string($course->fullname));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($coursecontext);
 
 echo $OUTPUT->header();
 
-if (! $webrtcs = get_all_instances_in_course('webrtc', $course)) {
-    notice(get_string('nowebrtcs', 'webrtc'), new moodle_url('/course/view.php', array('id' => $course->id)));
+if (! $webrtcs = get_all_instances_in_course('webrtcexperiments', $course)) {
+    notice(get_string('nowebrtcs', 'webrtcexperiments'), new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
 $table = new html_table();
@@ -67,12 +67,12 @@ if ($course->format == 'weeks') {
 foreach ($webrtcs as $webrtc) {
     if (!$webrtc->visible) {
         $link = html_writer::link(
-            new moodle_url('/mod/webrtc.php', array('id' => $webrtc->coursemodule)),
+            new moodle_url('/mod/webrtcexperiments/view.php', array('id' => $webrtc->coursemodule)),
             format_string($webrtc->name, true),
             array('class' => 'dimmed'));
     } else {
         $link = html_writer::link(
-            new moodle_url('/mod/webrtc.php', array('id' => $webrtc->coursemodule)),
+            new moodle_url('/mod/webrtcexperiments/view.php', array('id' => $webrtc->coursemodule)),
             format_string($webrtc->name, true));
     }
 
@@ -83,6 +83,6 @@ foreach ($webrtcs as $webrtc) {
     }
 }
 
-echo $OUTPUT->heading(get_string('modulenameplural', 'webrtc'), 2);
+echo $OUTPUT->heading(get_string('modulenameplural', 'webrtcexperiments'), 2);
 echo html_writer::table($table);
 echo $OUTPUT->footer();

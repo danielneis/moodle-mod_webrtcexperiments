@@ -16,12 +16,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The main webrtc configuration form
+ * The main webrtcexperiments configuration form
  *
  * It uses the standard core Moodle formslib. For more info about them, please
  * visit: http://docs.moodle.org/en/Development:lib/formslib.php
  *
- * @package    mod_webrtc
+ * @package    mod_webrtcexperiments
  * @copyright  2014 Daniel Neis Araujo
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,7 +33,7 @@ require_once($CFG->dirroot.'/course/moodleform_mod.php');
 /**
  * Module instance settings form
  */
-class mod_webrtc_mod_form extends moodleform_mod {
+class mod_webrtcexperiments_mod_form extends moodleform_mod {
 
     /**
      * Defines forms elements
@@ -47,7 +47,7 @@ class mod_webrtc_mod_form extends moodleform_mod {
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
         // Adding the standard "name" field
-        $mform->addElement('text', 'name', get_string('webrtcname', 'webrtc'), array('size'=>'64'));
+        $mform->addElement('text', 'name', get_string('webrtcname', 'webrtcexperiments'), array('size'=>'64'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
@@ -55,7 +55,7 @@ class mod_webrtc_mod_form extends moodleform_mod {
         }
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $mform->addHelpButton('name', 'webrtcname', 'webrtc');
+        $mform->addHelpButton('name', 'webrtcname', 'webrtcexperiments');
 
         // Adding the standard "intro" and "introformat" fields
         $this->add_intro_editor();
@@ -64,9 +64,9 @@ class mod_webrtc_mod_form extends moodleform_mod {
         // Adding the rest of webrtc settings, spreeading all them into this fieldset
         // or adding more fieldsets ('header' elements) if needed for better logic
 
-        $mform->addElement('text', 'signalingserver', get_string('signalingserver', 'webrtc'), array('size'=>'64'));
+        $mform->addElement('text', 'signalingserver', get_string('signalingserver', 'webrtcexperiments'), array('size'=>'64'));
         $mform->setDefault('signalingserver', 'wss://novoaeon.com.br:12034');
-        $mform->addHelpButton('signalingserver', 'signalingserver', 'webrtc');
+        $mform->addHelpButton('signalingserver', 'signalingserver', 'webrtcexperiments');
         //-------------------------------------------------------------------------------
         // add standard elements, common to all modules
         $this->standard_coursemodule_elements();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/webrtc/db" VERSION="20101203" COMMENT="XMLDB file for Moodle mod/webrtc"
+<XMLDB PATH="mod/webrtcexperiments/db" VERSION="20101203" COMMENT="XMLDB file for Moodle mod/webrtcexperiments"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="webrtc" COMMENT="Default comment for webrtc, please edit me">
+    <TABLE NAME="webrtcexperiments" COMMENT="WebRTC Experiments plugin">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
         <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Course webrtc activity belongs to" PREVIOUS="id" NEXT="name"/>

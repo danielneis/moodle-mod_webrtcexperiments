@@ -16,15 +16,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Library of interface functions and constants for module webrtc
+ * Library of interface functions and constants for module webrtcexperiments
  *
  * All the core Moodle functions, neeeded to allow the module to work
  * integrated in Moodle should be placed here.
- * All the webrtc specific functions, needed to implement all the module
+ * All the webrtcexperiments specific functions, needed to implement all the module
  * logic, should go to locallib.php. This will help to save some memory when
  * Moodle is performing actions across all modules.
  *
- * @package    mod_webrtc
+ * @package    mod_webrtcexperiments
  * @copyright  2014 Daniel Neis Araujo
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -45,7 +45,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param string $feature FEATURE_xx constant for requested feature
  * @return mixed true if the feature is supported, null if unknown
  */
-function webrtc_supports($feature) {
+function webrtcexperiments_supports($feature) {
     switch($feature) {
         case FEATURE_MOD_INTRO:         return true;
         case FEATURE_SHOW_DESCRIPTION:  return true;
@@ -55,7 +55,7 @@ function webrtc_supports($feature) {
 }
 
 /**
- * Saves a new instance of the webrtc into the database
+ * Saves a new instance of the webrtcexperiments into the database
  *
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
@@ -63,31 +63,31 @@ function webrtc_supports($feature) {
  * of the new instance.
  *
  * @param object $webrtc An object from the form in mod_form.php
- * @param mod_webrtc_mod_form $mform
- * @return int The id of the newly inserted webrtc record
+ * @param mod_webrtcexperiments_mod_form $mform
+ * @return int The id of the newly inserted webrtcexperiments record
  */
-function webrtc_add_instance(stdClass $webrtc, mod_webrtc_mod_form $mform = null) {
+function webrtcexperiments_add_instance(stdClass $webrtc, mod_webrtcexperiments_mod_form $mform = null) {
     global $DB;
 
     $webrtc->timecreated = time();
 
     # You may have to add extra stuff in here #
 
-    return $DB->insert_record('webrtc', $webrtc);
+    return $DB->insert_record('webrtcexperiments', $webrtc);
 }
 
 /**
- * Updates an instance of the webrtc in the database
+ * Updates an instance of the webrtcexperiments in the database
  *
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will update an existing instance with new data.
  *
  * @param object $webrtc An object from the form in mod_form.php
- * @param mod_webrtc_mod_form $mform
+ * @param mod_webrtcexperiments_mod_form $mform
  * @return boolean Success/Fail
  */
-function webrtc_update_instance(stdClass $webrtc, mod_webrtc_mod_form $mform = null) {
+function webrtcexperiments_update_instance(stdClass $webrtc, mod_webrtcexperiments_mod_form $mform = null) {
     global $DB;
 
     $webrtc->timemodified = time();
@@ -95,11 +95,11 @@ function webrtc_update_instance(stdClass $webrtc, mod_webrtc_mod_form $mform = n
 
     # You may have to add extra stuff in here #
 
-    return $DB->update_record('webrtc', $webrtc);
+    return $DB->update_record('webrtcexperiments', $webrtc);
 }
 
 /**
- * Removes an instance of the webrtc from the database
+ * Removes an instance of the webrtcexperiments from the database
  *
  * Given an ID of an instance of this module,
  * this function will permanently delete the instance
@@ -108,16 +108,16 @@ function webrtc_update_instance(stdClass $webrtc, mod_webrtc_mod_form $mform = n
  * @param int $id Id of the module instance
  * @return boolean Success/Failure
  */
-function webrtc_delete_instance($id) {
+function webrtcexperiments_delete_instance($id) {
     global $DB;
 
-    if (! $webrtc = $DB->get_record('webrtc', array('id' => $id))) {
+    if (! $webrtc = $DB->get_record('webrtcexperiments', array('id' => $id))) {
         return false;
     }
 
     # Delete any dependent records here #
 
-    $DB->delete_records('webrtc', array('id' => $webrtc->id));
+    $DB->delete_records('webrtcexperiments', array('id' => $webrtc->id));
 
     return true;
 }
@@ -131,7 +131,7 @@ function webrtc_delete_instance($id) {
  *
  * @return stdClass|null
  */
-function webrtc_user_outline($course, $user, $mod, $webrtc) {
+function webrtcexperiments_user_outline($course, $user, $mod, $webrtc) {
 
     $return = new stdClass();
     $return->time = 0;
@@ -149,17 +149,17 @@ function webrtc_user_outline($course, $user, $mod, $webrtc) {
  * @param stdClass $webrtc the module instance record
  * @return void, is supposed to echp directly
  */
-function webrtc_user_complete($course, $user, $mod, $webrtc) {
+function webrtcexperiments_user_complete($course, $user, $mod, $webrtc) {
 }
 
 /**
  * Given a course and a time, this module should find recent activity
- * that has occurred in webrtc activities and print it out.
+ * that has occurred in webrtcexperiments activities and print it out.
  * Return true if there was output, or false is there was none.
  *
  * @return boolean
  */
-function webrtc_print_recent_activity($course, $viewfullnames, $timestart) {
+function webrtcexperiments_print_recent_activity($course, $viewfullnames, $timestart) {
     return false;  //  True if anything was printed, otherwise false
 }
 
@@ -168,7 +168,7 @@ function webrtc_print_recent_activity($course, $viewfullnames, $timestart) {
  *
  * This callback function is supposed to populate the passed array with
  * custom activity records. These records are then rendered into HTML via
- * {@link webrtc_print_recent_mod_activity()}.
+ * {@link webrtcexperiments_print_recent_mod_activity()}.
  *
  * @param array $activities sequentially indexed array of objects with the 'cmid' property
  * @param int $index the index in the $activities to use for the next record
@@ -179,15 +179,15 @@ function webrtc_print_recent_activity($course, $viewfullnames, $timestart) {
  * @param int $groupid check for a particular group's activity only, defaults to 0 (all groups)
  * @return void adds items into $activities and increases $index
  */
-function webrtc_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid=0, $groupid=0) {
+function webrtcexperiments_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid=0, $groupid=0) {
 }
 
 /**
- * Prints single activity item prepared by {@see webrtc_get_recent_mod_activity()}
+ * Prints single activity item prepared by {@see webrtcexperiments_get_recent_mod_activity()}
 
  * @return void
  */
-function webrtc_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
+function webrtcexperiments_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
 }
 
 /**
@@ -198,7 +198,7 @@ function webrtc_print_recent_mod_activity($activity, $courseid, $detail, $modnam
  * @return boolean
  * @todo Finish documenting this function
  **/
-function webrtc_cron () {
+function webrtcexperiments_cron () {
     return true;
 }
 
@@ -208,7 +208,7 @@ function webrtc_cron () {
  * @example return array('moodle/site:accessallgroups');
  * @return array
  */
-function webrtc_get_extra_capabilities() {
+function webrtcexperiments_get_extra_capabilities() {
     return array();
 }
 
@@ -227,11 +227,11 @@ function webrtc_get_extra_capabilities() {
  * @param int $webrtcid ID of an instance of this module
  * @return bool true if the scale is used by the given webrtc instance
  */
-function webrtc_scale_used($webrtcid, $scaleid) {
+function webrtcexperiments_scale_used($webrtcid, $scaleid) {
     global $DB;
 
     /** @example */
-    if ($scaleid and $DB->record_exists('webrtc', array('id' => $webrtcid, 'grade' => -$scaleid))) {
+    if ($scaleid and $DB->record_exists('webrtcexperiments', array('id' => $webrtcid, 'grade' => -$scaleid))) {
         return true;
     } else {
         return false;
@@ -246,11 +246,11 @@ function webrtc_scale_used($webrtcid, $scaleid) {
  * @param $scaleid int
  * @return boolean true if the scale is used by any webrtc instance
  */
-function webrtc_scale_used_anywhere($scaleid) {
+function webrtcexperiments_scale_used_anywhere($scaleid) {
     global $DB;
 
     /** @example */
-    if ($scaleid and $DB->record_exists('webrtc', array('grade' => -$scaleid))) {
+    if ($scaleid and $DB->record_exists('webrtcexperiments', array('grade' => -$scaleid))) {
         return true;
     } else {
         return false;
@@ -266,7 +266,7 @@ function webrtc_scale_used_anywhere($scaleid) {
  * @param mixed optional array/object of grade(s); 'reset' means reset grades in gradebook
  * @return void
  */
-function webrtc_grade_item_update(stdClass $webrtc, $grades=null) {
+function webrtcexperiments_grade_item_update(stdClass $webrtc, $grades=null) {
     global $CFG;
     require_once($CFG->libdir.'/gradelib.php');
 
@@ -277,7 +277,7 @@ function webrtc_grade_item_update(stdClass $webrtc, $grades=null) {
     $item['grademax']  = $webrtc->grade;
     $item['grademin']  = 0;
 
-    grade_update('mod/webrtc', $webrtc->course, 'mod', 'webrtc', $webrtc->id, 0, null, $item);
+    grade_update('mod/webrtcexperiments', $webrtc->course, 'mod', 'webrtcexperiments', $webrtc->id, 0, null, $item);
 }
 
 /**
@@ -289,14 +289,14 @@ function webrtc_grade_item_update(stdClass $webrtc, $grades=null) {
  * @param int $userid update grade of specific user only, 0 means all participants
  * @return void
  */
-function webrtc_update_grades(stdClass $webrtc, $userid = 0) {
+function webrtcexperiments_update_grades(stdClass $webrtc, $userid = 0) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
     /** @example */
     $grades = array(); // populate array of grade objects indexed by userid
 
-    grade_update('mod/webrtc', $webrtc->course, 'mod', 'webrtc', $webrtc->id, 0, $grades);
+    grade_update('mod/webrtcexperiments', $webrtc->course, 'mod', 'webrtcexperiments', $webrtc->id, 0, $grades);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -314,7 +314,7 @@ function webrtc_update_grades(stdClass $webrtc, $userid = 0) {
  * @param stdClass $context
  * @return array of [(string)filearea] => (string)description
  */
-function webrtc_get_file_areas($course, $cm, $context) {
+function webrtcexperiments_get_file_areas($course, $cm, $context) {
     return array();
 }
 
@@ -335,7 +335,7 @@ function webrtc_get_file_areas($course, $cm, $context) {
  * @param string $filename
  * @return file_info instance or null if not found
  */
-function webrtc_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
+function webrtcexperiments_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
     return null;
 }
 
@@ -353,7 +353,7 @@ function webrtc_get_file_info($browser, $areas, $course, $cm, $context, $fileare
  * @param bool $forcedownload whether or not force download
  * @param array $options additional options affecting the file serving
  */
-function webrtc_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
+function webrtcexperiments_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
     global $DB, $CFG;
 
     if ($context->contextlevel != CONTEXT_MODULE) {
@@ -379,7 +379,7 @@ function webrtc_pluginfile($course, $cm, $context, $filearea, array $args, $forc
  * @param stdClass $module
  * @param cm_info $cm
  */
-function webrtc_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
+function webrtcexperiments_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
 }
 
 /**
@@ -391,5 +391,5 @@ function webrtc_extend_navigation(navigation_node $navref, stdclass $course, std
  * @param settings_navigation $settingsnav {@link settings_navigation}
  * @param navigation_node $webrtcnode {@link navigation_node}
  */
-function webrtc_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $webrtcnode=null) {
+function webrtcexperiments_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $webrtcnode=null) {
 }

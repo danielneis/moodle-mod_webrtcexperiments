@@ -1,6 +1,6 @@
-M.mod_webrtc = {};
+M.mod_webrtcexperiments = {};
 
-M.mod_webrtc.init_meeting = function(Y, signalingserver) {
+M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
 
     var meeting = new Meeting();
 

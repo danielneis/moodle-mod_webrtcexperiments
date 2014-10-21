@@ -17,7 +17,7 @@
 /**
  * Redirect the user to the appropriate submission related page
  *
- * @package   mod_webrtc
+ * @package   mod_webrtcexperiments
  * @category  grade
  * @copyright 2014 Daniel Neis Araujo
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
