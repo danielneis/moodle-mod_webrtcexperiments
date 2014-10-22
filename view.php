@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -26,19 +25,17 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/// (Replace webrtcexperiments with the name of your module and remove this line)
-
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
-$id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-$n  = optional_param('n', 0, PARAM_INT);  // webrtc instance ID - it should be named as the first character of the module
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
+$n  = optional_param('n', 0, PARAM_INT);  // ... webrtc instance ID - it should be named as the first character of the module.
 
 if ($id) {
     $cm         = get_coursemodule_from_id('webrtcexperiments', $id, 0, false, MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
     $webrtc  = $DB->get_record('webrtcexperiments', array('id' => $cm->instance), '*', MUST_EXIST);
-} elseif ($n) {
+} else if ($n) {
     $webrtc  = $DB->get_record('webrtcexperiments', array('id' => $n), '*', MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $webrtc->course), '*', MUST_EXIST);
     $cm         = get_coursemodule_from_instance('webrtcexperiments', $webrtc->id, $course->id, false, MUST_EXIST);
@@ -51,7 +48,7 @@ $context = context_module::instance($cm->id);
 
 add_to_log($course->id, 'webrtcexperiments', 'view', "view.php?id={$cm->id}", $webrtc->name, $cm->id);
 
-/// Print the page header
+// Print the page header.
 
 $PAGE->set_url('/mod/webrtcexperiments/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($webrtc->name));
@@ -60,14 +57,14 @@ $PAGE->set_context($context);
 
 $PAGE->requires->js('/mod/webrtcexperiments/meeting.js');
 
-// Output starts here
+// Output starts here.
 echo $OUTPUT->header();
 
-if ($webrtc->intro) { // Conditions to show the intro can change to look for own settings or whatever
+// Conditions to show the intro can change to look for own settings or whatever.
+if ($webrtc->intro) {
     echo $OUTPUT->box(format_module_intro('webrtcexperiments', $webrtc, $cm->id), 'generalbox mod_introbox', 'webrtcintro');
 }
 
-// Replace the following lines with you own code
 echo '<article>
             <section class="experiment">
                 <section>
@@ -92,5 +89,5 @@ echo '<article>
 
 $PAGE->requires->js_init_call('M.mod_webrtcexperiments.init_meeting', array($webrtc->signalingserver));
 
-// Finish the page
+// Finish the page.
 echo $OUTPUT->footer();

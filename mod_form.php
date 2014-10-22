@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -42,12 +41,11 @@ class mod_webrtcexperiments_mod_form extends moodleform_mod {
 
         $mform = $this->_form;
 
-        //-------------------------------------------------------------------------------
-        // Adding the "general" fieldset, where all the common settings are showed
+        // Adding the "general" fieldset, where all the common settings are showed.
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
-        // Adding the standard "name" field
-        $mform->addElement('text', 'name', get_string('webrtcname', 'webrtcexperiments'), array('size'=>'64'));
+        // Adding the standard "name" field.
+        $mform->addElement('text', 'name', get_string('webrtcname', 'webrtcexperiments'), array('size' => '64'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
@@ -57,22 +55,21 @@ class mod_webrtcexperiments_mod_form extends moodleform_mod {
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'webrtcname', 'webrtcexperiments');
 
-        // Adding the standard "intro" and "introformat" fields
+        // Adding the standard "intro" and "introformat" fields.
         $this->add_intro_editor();
 
-        //-------------------------------------------------------------------------------
         // Adding the rest of webrtc settings, spreeading all them into this fieldset
-        // or adding more fieldsets ('header' elements) if needed for better logic
+        // ... or adding more fieldsets ('header' elements) if needed for better logic.
 
-        $mform->addElement('text', 'signalingserver', get_string('signalingserver', 'webrtcexperiments'), array('size'=>'64'));
+        $mform->addElement('text', 'signalingserver', get_string('signalingserver', 'webrtcexperiments'), array('size' => '64'));
         $mform->setDefault('signalingserver', 'wss://novoaeon.com.br:12034');
         $mform->setType('signalingserver', PARAM_TEXT);
         $mform->addHelpButton('signalingserver', 'signalingserver', 'webrtcexperiments');
-        //-------------------------------------------------------------------------------
-        // add standard elements, common to all modules
+
+        // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
-        //-------------------------------------------------------------------------------
-        // add standard buttons, common to all modules
+
+        // Add standard buttons, common to all modules.
         $this->add_action_buttons();
     }
 }
