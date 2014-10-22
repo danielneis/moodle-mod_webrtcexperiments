@@ -34,8 +34,6 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
 require_course_login($course);
 
-add_to_log($course->id, 'webrtcexperiments', 'view all', 'index.php?id='.$course->id, '');
-
 $coursecontext = context_course::instance($course->id);
 
 $PAGE->set_url('/mod/webrtcexperiments/index.php', array('id' => $id));

@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Defines the version of webrtcexperiments
  *
@@ -28,7 +27,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014102100;      // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2014102200;      // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014042900;      // Requires this Moodle version.
 $plugin->cron      = 0;               // Period for cron to check this plugin (secs).
 $plugin->component = 'mod_webrtcexperiments'; // To check on upgrade, that plugin sits in correct place.
