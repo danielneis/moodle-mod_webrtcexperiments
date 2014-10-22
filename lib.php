@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -31,12 +30,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-/** example constant */
-//define('NEWMODULE_ULTIMATE_ANSWER', 42);
-
-////////////////////////////////////////////////////////////////////////////////
-// Moodle core API                                                            //
-////////////////////////////////////////////////////////////////////////////////
+/**
+ * Moodle core API
+ */
 
 /**
  * Returns the information on whether the module supports a feature
@@ -47,10 +43,12 @@ defined('MOODLE_INTERNAL') || die();
  */
 function webrtcexperiments_supports($feature) {
     switch($feature) {
-        case FEATURE_MOD_INTRO:         return true;
-        case FEATURE_SHOW_DESCRIPTION:  return true;
-
-        default:                        return null;
+        case FEATURE_MOD_INTRO:
+            return true;
+        case FEATURE_SHOW_DESCRIPTION:
+            return true;
+        default:
+            return null;
     }
 }
 
@@ -70,8 +68,6 @@ function webrtcexperiments_add_instance(stdClass $webrtc, mod_webrtcexperiments_
     global $DB;
 
     $webrtc->timecreated = time();
-
-    # You may have to add extra stuff in here #
 
     return $DB->insert_record('webrtcexperiments', $webrtc);
 }
@@ -93,8 +89,6 @@ function webrtcexperiments_update_instance(stdClass $webrtc, mod_webrtcexperimen
     $webrtc->timemodified = time();
     $webrtc->id = $webrtc->instance;
 
-    # You may have to add extra stuff in here #
-
     return $DB->update_record('webrtcexperiments', $webrtc);
 }
 
@@ -114,8 +108,6 @@ function webrtcexperiments_delete_instance($id) {
     if (! $webrtc = $DB->get_record('webrtcexperiments', array('id' => $id))) {
         return false;
     }
-
-    # Delete any dependent records here #
 
     $DB->delete_records('webrtcexperiments', array('id' => $webrtc->id));
 
@@ -160,7 +152,7 @@ function webrtcexperiments_user_complete($course, $user, $mod, $webrtc) {
  * @return boolean
  */
 function webrtcexperiments_print_recent_activity($course, $viewfullnames, $timestart) {
-    return false;  //  True if anything was printed, otherwise false
+    return false;  // True if anything was printed, otherwise false.
 }
 
 /**
@@ -184,7 +176,7 @@ function webrtcexperiments_get_recent_mod_activity(&$activities, &$index, $times
 
 /**
  * Prints single activity item prepared by {@see webrtcexperiments_get_recent_mod_activity()}
-
+ *
  * @return void
  */
 function webrtcexperiments_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
@@ -212,9 +204,9 @@ function webrtcexperiments_get_extra_capabilities() {
     return array();
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Gradebook API                                                              //
-////////////////////////////////////////////////////////////////////////////////
+/**
+ * Gradebook API                                                              //
+ */
 
 /**
  * Is a given scale used by the instance of webrtc?
@@ -230,7 +222,6 @@ function webrtcexperiments_get_extra_capabilities() {
 function webrtcexperiments_scale_used($webrtcid, $scaleid) {
     global $DB;
 
-    /** @example */
     if ($scaleid and $DB->record_exists('webrtcexperiments', array('id' => $webrtcid, 'grade' => -$scaleid))) {
         return true;
     } else {
@@ -249,7 +240,6 @@ function webrtcexperiments_scale_used($webrtcid, $scaleid) {
 function webrtcexperiments_scale_used_anywhere($scaleid) {
     global $DB;
 
-    /** @example */
     if ($scaleid and $DB->record_exists('webrtcexperiments', array('grade' => -$scaleid))) {
         return true;
     } else {
@@ -270,7 +260,6 @@ function webrtcexperiments_grade_item_update(stdClass $webrtc, $grades=null) {
     global $CFG;
     require_once($CFG->libdir.'/gradelib.php');
 
-    /** @example */
     $item = array();
     $item['itemname'] = clean_param($webrtc->name, PARAM_NOTAGS);
     $item['gradetype'] = GRADE_TYPE_VALUE;
@@ -293,15 +282,14 @@ function webrtcexperiments_update_grades(stdClass $webrtc, $userid = 0) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
-    /** @example */
-    $grades = array(); // populate array of grade objects indexed by userid
+    $grades = array(); // Populate array of grade objects indexed by userid.
 
     grade_update('mod/webrtcexperiments', $webrtc->course, 'mod', 'webrtcexperiments', $webrtc->id, 0, $grades);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// File API                                                                   //
-////////////////////////////////////////////////////////////////////////////////
+/**
+ * File API                                                                   //
+ */
 
 /**
  * Returns the lists of all browsable file areas within the given module context
@@ -365,9 +353,9 @@ function webrtcexperiments_pluginfile($course, $cm, $context, $filearea, array $
     send_file_not_found();
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Navigation API                                                             //
-////////////////////////////////////////////////////////////////////////////////
+/**
+ * Navigation API                                                             //
+ */
 
 /**
  * Extends the global navigation tree by adding webrtc nodes if there is a relevant content
