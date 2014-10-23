@@ -38,3 +38,4 @@ $string['signalingserver'] = 'Signaling server';
 $string['signalingserver_help'] = "This is the address and port of signaling server. If you don't know what it means, leave as default.";
 $string['webrtcname'] = 'Name';
 $string['webrtcname_help'] = 'Name of the activity that will appear on course page.';
+$string['loadinglistmessage'] = 'Loading list. If this message does not disappear in a few seconds, there is no meetings happening. You can always start new one.';

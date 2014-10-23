@@ -27,6 +27,14 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
             // manually joining a meeting room
             if (room) {
                 meeting.meet(room);
+                var setup = document.getElementById('setup-meeting');
+                if (setup) {
+                    setup.disabled = true;
+                }
+                var leave = document.getElementById('leave-meeting');
+                if (leave) {
+                    leave.disabled = false;
+                }
             }
 
             meetingsList.style.display = 'none';
@@ -42,7 +50,8 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
             localMediaStream.appendChild(e.video);
         }
         if (e.type == 'remote') {
-            remoteMediaStreams.insertBefore(e.video, remoteMediaStreams.firstChild);
+            e.video.className = 'remote-video';
+            remoteMediaStreams.appendChild(e.video);
         }
     };
 
@@ -107,6 +116,13 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
         var setup = document.getElementById('setup-meeting');
         if (setup) {
             setup.disabled = false;
+        }
+        var remoteMediaStreams = document.getElementById('remote-streams-container');
+        var children = remoteMediaStreams.children;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].className == 'remote-video') {
+                children[i].parentNode.removeChild(children[i]);
+            }
         }
     }
 }

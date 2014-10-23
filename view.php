@@ -77,7 +77,7 @@ echo '<table id="meetings-list">
               <th>Meetings list</th>
           </tr>
           <tr id="loading-list">
-              <td>Loading, please wait...</td>
+              <td>',get_string('loadinglistmessage', 'webrtcexperiments'),'</td>
           </tr>
       </table>
       <div class="row" id="buttons">
@@ -85,10 +85,10 @@ echo '<table id="meetings-list">
           <button id="leave-meeting" disabled="true">Leave Meeting</button>
       </div>
       <div class="row" >
-          <div style="width: 45%;" id="local-streams-container" >
+          <div class="span5" id="local-streams-container" >
             <h2>You</h2>
           </div>
-          <div style="width: 45%;"  id="remote-streams-container">
+          <div class="span5"  id="remote-streams-container">
             <h2>Remote Peers</h2>
           </div>
       </div>';
