@@ -69,10 +69,10 @@ echo $OUTPUT->header();
 
 // Conditions to show the intro can change to look for own settings or whatever.
 if ($webrtc->intro) {
-    echo $OUTPUT->box(format_module_intro('webrtcexperiments', $webrtc, $cm->id), 'generalbox mod_introbox', 'webrtcintro');
+    echo $OUTPUT->box(format_module_intro('webrtcexperiments', $webrtc, $cm->id), 'generalbox mod_introbox', 'ebrtcintro');
 }
 
-echo '<table style="width: 100%;" id="meetings-list">
+echo '<table id="meetings-list">
           <tr>
               <th>Meetings list</th>
           </tr>
@@ -82,7 +82,7 @@ echo '<table style="width: 100%;" id="meetings-list">
       </table>
       <div class="row" id="buttons">
           <button id="setup-meeting">Setup New Meeting</button>
-          <button id="leave-meeting">Leave Meeting</button>
+          <button id="leave-meeting" disabled="true">Leave Meeting</button>
       </div>
       <div class="row" >
           <div style="width: 45%;" id="local-streams-container" >

@@ -91,9 +91,22 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
         meeting.setup(meetingRoomName);
 
         this.disabled = true;
+        var leave = document.getElementById('leave-meeting');
+        if (leave) {
+            leave.disabled = false;
+        }
     };
 
     document.getElementById('leave-meeting').onclick = function () {
+        var video = document.getElementById('self');
+        if (video) {
+            video.parentNode.removeChild(video);
+        }
         meeting.leave();
+        this.disabled = true;
+        var setup = document.getElementById('setup-meeting');
+        if (setup) {
+            setup.disabled = false;
+        }
     }
 }
