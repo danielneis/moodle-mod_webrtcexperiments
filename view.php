@@ -72,27 +72,26 @@ if ($webrtc->intro) {
     echo $OUTPUT->box(format_module_intro('webrtcexperiments', $webrtc, $cm->id), 'generalbox mod_introbox', 'webrtcintro');
 }
 
-echo '<article>
-            <section class="experiment">
-                <section>
-                    <input type="text" id="meeting-name">
-                    <button id="setup-meeting">Setup New Meeting</button>
-                </section>
-
-                <table style="width: 100%;" id="meetings-list"></table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td>
-                            <h2 style="display: block; font-size: 1em; text-align: center;">You!</h2>
-							<div id="local-streams-container"></div>
-                        </td>
-                        <td style="background: white;">
-                            <h2 style="display: block; font-size: 1em; text-align: center;">Remote Peers</h2>
-							<div id="remote-streams-container"></div>
-                        </td>
-                    </tr>
-                </table>
-            </section>';
+echo '<table style="width: 100%;" id="meetings-list">
+          <tr>
+              <th>Meetings list</th>
+          </tr>
+          <tr id="loading-list">
+              <td>Loading, please wait...</td>
+          </tr>
+      </table>
+      <div class="row" id="buttons">
+          <button id="setup-meeting">Setup New Meeting</button>
+          <button id="leave-meeting">Leave Meeting</button>
+      </div>
+      <div class="row" >
+          <div style="width: 45%;" id="local-streams-container" >
+            <h2>You</h2>
+          </div>
+          <div style="width: 45%;"  id="remote-streams-container">
+            <h2>Remote Peers</h2>
+          </div>
+      </div>';
 
 $PAGE->requires->js_init_call('M.mod_webrtcexperiments.init_meeting', array($webrtc->signalingserver));
 

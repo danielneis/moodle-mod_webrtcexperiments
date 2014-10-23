@@ -16,7 +16,9 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
         tr.innerHTML = '<td>' + room.roomid + '</td>' +
             '<td><button class="join">Join</button></td>';
 
-        meetingsList.insertBefore(tr, meetingsList.firstChild);
+        var loading = document.getElementById('loading-list');
+        loading.parentNode.removeChild(loading);
+        meetingsList.appendChild(tr);
 
         // when someone clicks table-row; joining the relevant meeting room
         tr.onclick = function () {
@@ -85,10 +87,13 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
 
     document.getElementById('setup-meeting').onclick = function () {
         // setup new meeting room
-        var meetingRoomName = document.getElementById('meeting-name').value || 'Simple Meeting';
+        var meetingRoomName = 'Simple Meeting';
         meeting.setup(meetingRoomName);
 
         this.disabled = true;
-        this.parentNode.innerHTML = '<h2><a href="' + location.href + '" target="_blank">Share this link</a></h2>';
     };
+
+    document.getElementById('leave-meeting').onclick = function () {
+        meeting.leave();
+    }
 }
