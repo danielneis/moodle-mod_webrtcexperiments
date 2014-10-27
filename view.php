@@ -70,9 +70,6 @@ if ($webrtc->intro) {
     echo $OUTPUT->box(format_module_intro('webrtcexperiments', $webrtc, $cm->id), 'generalbox mod_introbox', 'ebrtcintro');
 }
 
-$PAGE->requires->js('/mod/webrtcexperiments/getMediaElement-v1.2.js');
-$PAGE->requires->js('/mod/webrtcexperiments/RTCMultiConnection-v2.2.js');
-
 echo '<section class="experiment">
           <h2 class="header" id="feedback">
               Select SessionType and Direction-of-Flow!
@@ -81,10 +78,10 @@ echo '<section class="experiment">
           <section>
               <select id="session" title="Session">
                   <option>audio+video+data+screen</option>
-                  <option>audio+video+data</option>
-                  <option>audio+data+screen</option>
+                  <option selected>audio+video+data</option>
                   <option>audio+video+screen</option>
-                  <option selected>audio+video</option>
+                  <option>audio+data+screen</option>
+                  <option>audio+video</option>
                   <option>audio+screen</option>
                   <option>video+screen</option>
                   <option>data+screen</option>
@@ -101,7 +98,6 @@ echo '<section class="experiment">
                   <option>one-to-many</option>
                   <option>one-way</option>
               </select>
-              <input type="text" id="session-name">
               <button id="setup-new-session" class="setup">New Session</button>
           </section>
           
@@ -132,7 +128,10 @@ echo '<section class="experiment">
           </table>
       </section>';
 
-$PAGE->requires->js_init_call('M.mod_webrtcexperiments.init_meeting', array($webrtc->signalingserver));
+$PAGE->requires->js('/mod/webrtcexperiments/getMediaElement.min.js');
+$PAGE->requires->js('/mod/webrtcexperiments/RTCMultiConnection.js');
+
+$PAGE->requires->js_init_call('M.mod_webrtcexperiments.init_meeting', array($webrtc->signalingserver, fullname($USER)));
 
 // Finish the page.
 echo $OUTPUT->footer();

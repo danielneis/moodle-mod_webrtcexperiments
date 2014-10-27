@@ -6,7 +6,7 @@
 
 M.mod_webrtcexperiments = {};
 
-M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
+M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver, username) {
 
     var connection = new RTCMultiConnection();
     connection.firebase = false;
@@ -15,34 +15,43 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
         audio: true,
         video: true
     };
+    var current_user = username;
 
-    connection.openSignalingChannel = function(onmessage) {
-            var channel = location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
-            var websocket = new WebSocket(signalingserver);
-            websocket.onopen = function () {
-                    websocket.push(JSON.stringify({
-                            open: true,
-                            channel: channel
-                    }));
-            };
-            websocket.push = websocket.send;
-            websocket.send = function (data) {
-                    if (websocket.readyState != 1) {
-                            return setTimeout(function() {
-                                    websocket.send(data);
-                            }, 300);
-                    }
+    connection.openSignalingChannel = function(config) {
 
-                    websocket.push(JSON.stringify({
-                            data: data,
-                            channel: channel
-                    }));
-            };
-            websocket.onmessage = function(e) {
-                    onmessage(JSON.parse(e.data));
-            };
-            return websocket;
+        var channel = location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
+        var websocket = new WebSocket(signalingserver);
+        websocket.channel = channel;
+
+        websocket.onopen = function () {
+                websocket.push(JSON.stringify({
+                        open: true,
+                        channel: channel
+                }));
+                if (config.callback) {
+                    config.callback(websocket);
+                }
+
+        };
+        websocket.onmessage = function(event) {
+            config.onmessage(JSON.parse(event.data));
+        };
+        websocket.push = websocket.send;
+        websocket.send = function (data) {
+                if (websocket.readyState != 1) {
+                        return setTimeout(function() {
+                                websocket.send(data);
+                        }, 300);
+                }
+
+                websocket.push(JSON.stringify({
+                        data: data,
+                        channel: channel
+                }));
+        };
+        return websocket;
     };
+
 
     var roomsList = document.getElementById('rooms-list'), sessions = { };
     connection.onNewSession = function(session) {
@@ -50,7 +59,7 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
         sessions[session.sessionid] = session;
 
         var tr = document.createElement('tr');
-        tr.innerHTML = '<td><strong>' + session.extra['session-name'] + '</strong> is an active session.</td>' +
+        tr.innerHTML = '<td>There is an active session.</td>' +
             '<td><button class="join">Join</button></td>';
         roomsList.insertBefore(tr, roomsList.firstChild);
 
@@ -222,24 +231,25 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver) {
         div.focus();
     }
 
+    var chatOutput = document.getElementById('chat-output');
+    var fileProgress = document.getElementById('file-progress');
+
     document.getElementById('file').onchange = function() {
         connection.send(this.files[0]);
     };
 
-    var chatOutput = document.getElementById('chat-output'),
-        fileProgress = document.getElementById('file-progress');
-
     var chatInput = document.getElementById('chat-input');
     chatInput.onkeypress = function(e) {
         if (e.keyCode !== 13 || !this.value) return;
-        appendDIV(this.value);
+
+        var text = current_user + ':' + this.value;
+        appendDIV(text);
 
         // sending text message
-        connection.send(this.value);
+        connection.send(text);
 
         this.value = '';
     };
 
     connection.connect();
-
 }
