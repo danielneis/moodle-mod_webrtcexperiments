@@ -46,14 +46,7 @@ if ($id) {
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-$event = mod_webrtcexperiments\event\course_module_viewed::create(array(
-    'objectid' => $PAGE->cm->instance,
-    'context' => $PAGE->context,
-));
-$event->add_record_snapshot('course', $PAGE->course);
-// In the next line you can use $PAGE->activityrecord if you have set it, or skip this line if you don't have a record.
-$event->add_record_snapshot($PAGE->cm->modname, $webrtc);
-$event->trigger();
+add_to_log($course->id, 'webrtcexperiments', 'view', "view.php?id={$cm->id}", $webrtc->name, $cm->id);
 
 // Print the page header.
 
