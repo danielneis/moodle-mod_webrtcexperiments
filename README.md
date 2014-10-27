@@ -34,6 +34,8 @@ Features
 * Text chat
 * File sharing
  * It is P2P file sharing, not integrated with Moodle Files API
+* The icon was downloaded from pixabay and is licensed under CC0 Public Domain
+ * http://pixabay.com/en/connection-network-router-cable-27386/
 
 It is basically a copy of the all-in-one demo:
 

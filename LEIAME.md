@@ -35,6 +35,8 @@ Funcionalidades
 * Chat de text
 * Compartilhamento de arquivos
  * De forma P2P, sem integração com a API de arquivos do Moodle
+* O ícone foi baixado do pixabay e está licensiado sob CC0 Public Domain
+ * http://pixabay.com/en/connection-network-router-cable-27386/
 
 É basicamente uma cópia do "all-in-one demo" disponível em:
 
