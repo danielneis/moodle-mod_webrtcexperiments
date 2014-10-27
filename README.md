@@ -21,7 +21,7 @@ Features
 
 It is basically a copy of the all-in-one demo:
 
-https://www.webrtc-experiment.com/RTCMultiConnection/all-in-one.html
+    https://www.webrtc-experiment.com/RTCMultiConnection/all-in-one.html
 
 But WebRTC is much more than that!
 
@@ -34,8 +34,8 @@ Future features
 Install
 =======
 
-# Put this code under "youmoodlerootdir/mod/webrtcexperiments"
-# Visit your Moodle site as administrator to install module via interface
+* Put this code under "youmoodlerootdir/mod/webrtcexperiments"
+* Visit your Moodle site as administrator to install module via interface
 
 Signaling Server
 ================
