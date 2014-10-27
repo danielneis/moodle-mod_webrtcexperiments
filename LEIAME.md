@@ -30,11 +30,11 @@ Funcionalidades
 ===============
 
 * Chat de áudio e vídeo
-** Com controles para ativar/desativar o áudio e vídeo
+ * Com controles para ativar/desativar o áudio e vídeo
 * Gravação de áudio e vídeo de qualquer usuário (inclusive local)
 * Chat de text
 * Compartilhamento de arquivos
-** De forma P2P, sem integração com a API de arquivos do Moodle
+ * De forma P2P, sem integração com a API de arquivos do Moodle
 
 É basicamente uma cópia do "all-in-one demo" disponível em:
 
