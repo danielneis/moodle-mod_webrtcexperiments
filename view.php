@@ -62,8 +62,6 @@ $PAGE->set_title(format_string($webrtc->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 
-$PAGE->requires->js('/mod/webrtcexperiments/meeting.js');
-
 // Output starts here.
 echo $OUTPUT->header();
 
@@ -72,26 +70,67 @@ if ($webrtc->intro) {
     echo $OUTPUT->box(format_module_intro('webrtcexperiments', $webrtc, $cm->id), 'generalbox mod_introbox', 'ebrtcintro');
 }
 
-echo '<table id="meetings-list">
-          <tr>
-              <th>Meetings list</th>
-          </tr>
-          <tr id="loading-list">
-              <td>',get_string('loadinglistmessage', 'webrtcexperiments'),'</td>
-          </tr>
-      </table>
-      <div class="row" id="buttons">
-          <button id="setup-meeting">Setup New Meeting</button>
-          <button id="leave-meeting" disabled="true">Leave Meeting</button>
-      </div>
-      <div class="row" >
-          <div class="span5" id="local-streams-container" >
-            <h2>You</h2>
-          </div>
-          <div class="span5"  id="remote-streams-container">
-            <h2>Remote Peers</h2>
-          </div>
-      </div>';
+$PAGE->requires->js('/mod/webrtcexperiments/getMediaElement-v1.2.js');
+$PAGE->requires->js('/mod/webrtcexperiments/RTCMultiConnection-v2.2.js');
+
+echo '<section class="experiment">
+          <h2 class="header" id="feedback">
+              Select SessionType and Direction-of-Flow!
+          </h2>
+          
+          <section>
+              <select id="session" title="Session">
+                  <option>audio+video+data+screen</option>
+                  <option>audio+video+data</option>
+                  <option>audio+data+screen</option>
+                  <option>audio+video+screen</option>
+                  <option selected>audio+video</option>
+                  <option>audio+screen</option>
+                  <option>video+screen</option>
+                  <option>data+screen</option>
+                  <option>audio+data</option>
+                  <option>video+data</option>
+                  <option>audio</option>
+                  <option>video</option>
+                  <option>data</option>
+                  <option>screen</option>
+              </select>
+              <select id="direction" title="Direction">
+                  <option>many-to-many</option>
+                  <option>one-to-one</option>
+                  <option>one-to-many</option>
+                  <option>one-way</option>
+              </select>
+              <input type="text" id="session-name">
+              <button id="setup-new-session" class="setup">New Session</button>
+          </section>
+          
+          <!-- list of all available broadcasting rooms -->
+          <table style="width: 100%;" id="rooms-list"></table>
+          
+          <!-- local/remote videos container -->
+          <div id="videos-container"></div>
+      </section>
+                  
+      <section class="experiment data-box">
+          <h2 class="header" style="border-bottom: 0;">WebRTC DataChannel</h2>
+          <table style="width: 100%;">
+              <tr>
+                  <td>
+                      <h2 style="display: block; font-size: 1em; text-align: center;">Text Chat</h2>
+
+                      <div id="chat-output"></div>
+                      <input type="text" id="chat-input" style="font-size: 1.2em;" placeholder="chat message" disabled>
+                  </td>
+                  <td style="background: white;">
+                      <h2 style="display: block; font-size: 1em; text-align: center;">Share Files</h2>
+                      <input type="file" id="file" disabled>
+
+                      <div id="file-progress"></div>
+                  </td>
+              </tr>
+          </table>
+      </section>';
 
 $PAGE->requires->js_init_call('M.mod_webrtcexperiments.init_meeting', array($webrtc->signalingserver));
 
