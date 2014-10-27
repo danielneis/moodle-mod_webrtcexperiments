@@ -56,7 +56,8 @@ Note that there is no warranty for this server to be up and running.
 Contact
 =======
 
-Feel free to contact me at danielneis@gmail.com
+Feel free to contact me at danielneis@gmail.com .
+
 If you have problems using the plugin the plugin or would like to see a new feature implemented, please visit https://github.com/danielneis/moodle-mod_webrtcexperiments/issuse
 
 If you like the plugin and want to say hi publicly instead of sending an email, leave a comment at https://moodle.org/plugins/view.php?plugin=mod_webrtcexperiments
