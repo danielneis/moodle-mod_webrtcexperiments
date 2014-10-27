@@ -1,16 +1,98 @@
-Este módulo de atividade pode ser adicionado aos cursos e nele os usuários podem criar diversas salas de reunião onde é possível compartilhar o microfone e a webcam. Não é necessário instalar nada no navegador, não precisa de flash, o plugin usa recursos nativos das versões mais novas do Firefox e Chrome, então basta um navegador atualizado =)
+WebRTC Moodle Plugin
+====================
 
+Bem vindo ao WebRTC Moodle Plugin!
 
-O plugin foi testado no Moodle 2.7 e 2.8, se você testar em outra versão do Moodle e funcionar (ou não funcionar) por favor, deixe um comentário no link abaixo:
+Este projeto usa código de
 
-https://github.com/danielneis/moodle-mod_webrtcexperiments/issues
+    http://webrtc-experiment.com/
 
-O plugin transmite vídeo e áudio de forma ponto-a-ponto, P2P, peer-to-peer, ou seja, diretamente entre o computador dos usuários, sem passar por um "servidor central" ou "servidor de sreaming".
+para implementar um módulo de atividades do Moodle
+que permite às pessoas comunicarem-se mais livrevemte.
 
-A única dependência de um servidor é para a sinalização dos eventos de criação de salas, entrada e saída de usuários e outros controles. Para isso, é fornecido por padrão um servidor em novoaeon.com.br, mas se você tiver interesse em usar seu próprio servidor de sinalização também é possível. Você pode encontrar instruções sobre isso na página que hospeda o código-fonte do projeto em
+Tudo que você precisa para começar a comunicar
+utilizando sua webcam e seu microfone é
+um navegador web atualizado, como o Firefox ou Chrome.
+Não é necessário instalar nenhum plugin no navegador.
+Não precisa de Flash.
 
+Além disso, o plugin transmite vídeo e áudio de
+forma ponto-a-ponto, P2P, peer-to-peer, ou seja,
+diretamente entre os computadores dos usuários,
+sem passar por um "servidor central" ou "servidor de sreaming".
 
-https://github.com/danielneis/moodle-mod_webrtcexperiments/
+A única dependência de um servidor é para a sinalização
+dos eventos de criação de salas, entrada e saída de usuários
+e outros controles. Veja mais sobre isso na sessão
+"Servidor de sinalização" deste documento.
 
+Funcionalidades
+===============
 
-Sinta-se a vontade para baixar, usar, alterar, redistribuir (inclusive com suas alterações) e também para sugerir e mandar suas alterações de volta para que possamos manter o projeto sempre vivo e funcionando para todos =)
+* Chat de áudio e vídeo
+** Com controles para ativar/desativar o áudio e vídeo
+* Gravação de áudio e vídeo de qualquer usuário (inclusive local)
+* Chat de text
+* Compartilhamento de arquivos
+** De forma P2P, sem integração com a API de arquivos do Moodle
+
+É basicamente uma cópia do "all-in-one demo" disponível em:
+
+    https://www.webrtc-experiment.com/RTCMultiConnection/all-in-one.html
+
+But WebRTC is much more than that!
+
+Funcionalidades futuras
+=======================
+
+* Screensharing
+* Colaborative canvas
+
+Versões do Moodle
+=================
+
+O plugin foi testado no Moodle 2.7 e 2.8, se você testar em
+outra versão do Moodle e funcionar (ou não funcionar),
+por favor, deixe um comentário no link abaixo:
+
+    https://github.com/danielneis/moodle-mod_webrtcexperiments/issues
+
+Instalação
+==========
+
+* Coloque este código em "moodle/mod/webrtcexperiments"
+* Visite o seu Moodle como administrador para instalar através da interface web
+
+Servidor de sinalização
+=======================
+
+Este módulo precisa de um servidor de sinalização.
+Para saber mais sobre Sinalização, por favor, visite:
+
+    https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Signaling.md
+
+Se você não quer (ou não sente a necessidade, ou não pode, por qualquer motivo)
+rodar seu próprio servidor de sinalização, não se preocupe.
+Este módulo irá utilizar o servidor abaixo por padrão (sob TLS):
+
+    wss://novoaeon.com.br:12034
+
+Note que não há nenhuma garantia que este servidor esteja disponível.
+Este servidor roda uma implementação de websockets em node.js disponível em:
+
+    https://github.com/muaz-khan/WebRTC-Experiment/tree/master/websocket-over-nodejs
+
+Contato
+=======
+
+Sinta-se a vontade para me enviar um email em danielneis@gmail.com .
+
+Se você encontrar problemas ao usar o plugin ou gostaria de
+ver alguma nova funcionalidade implementada, por favor, visite
+
+    https://github.com/danielneis/moodle-mod_webrtcexperiments/issues
+
+Se você gostou desse plugin e gostaria de dizer "olá" publicamente,
+ao invés de me enviar um email, deixe um comentário em
+
+    https://moodle.org/plugins/view.php?plugin=mod_webrtcexperiments
