@@ -97,3 +97,8 @@ If you like the plugin and want to say hi publicly instead of
 sending an email, leave a comment at
 
     https://moodle.org/plugins/view.php?plugin=mod_webrtcexperiments
+
+Donations
+=========
+
+[This development is a not for profit work. If  you like you can help keep it going by donating via paypal =)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=danielneis%40gmail%2ecom&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)

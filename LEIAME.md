@@ -98,3 +98,8 @@ Se você gostou desse plugin e gostaria de dizer "olá" publicamente,
 ao invés de me enviar um email, deixe um comentário em
 
     https://moodle.org/plugins/view.php?plugin=mod_webrtcexperiments
+
+Doações
+=========
+
+[O desenvolvimento deste plugin não tem fins lucrativos. Se você gostar, você pode ajudá-lo a continuar assim doando através do paypal =)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=danielneis%40gmail%2ecom&lc=BR&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest)
