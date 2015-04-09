@@ -47,6 +47,8 @@ function webrtcexperiments_supports($feature) {
             return true;
         case FEATURE_SHOW_DESCRIPTION:
             return true;
+        case FEATURE_GRADE_HAS_GRADE:
+            return false;
         default:
             return null;
     }
@@ -220,13 +222,7 @@ function webrtcexperiments_get_extra_capabilities() {
  * @return bool true if the scale is used by the given webrtc instance
  */
 function webrtcexperiments_scale_used($webrtcid, $scaleid) {
-    global $DB;
-
-    if ($scaleid and $DB->record_exists('webrtcexperiments', array('id' => $webrtcid, 'grade' => -$scaleid))) {
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
 
 /**
@@ -238,13 +234,7 @@ function webrtcexperiments_scale_used($webrtcid, $scaleid) {
  * @return boolean true if the scale is used by any webrtc instance
  */
 function webrtcexperiments_scale_used_anywhere($scaleid) {
-    global $DB;
-
-    if ($scaleid and $DB->record_exists('webrtcexperiments', array('grade' => -$scaleid))) {
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
 
 /**
