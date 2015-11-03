@@ -32,4 +32,4 @@ $plugin->requires  = 2014051200;      // Requires this Moodle version.
 $plugin->cron      = 0;               // Period for cron to check this plugin (secs).
 $plugin->component = 'mod_webrtcexperiments'; // To check on upgrade, that plugin sits in correct place.
 $plugin->maturity  = MATURITY_RC;
-$plugin->release   = '0.5';
+$plugin->release   = '0.6';
