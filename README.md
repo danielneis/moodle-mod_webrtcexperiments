@@ -52,16 +52,15 @@ Future features
 Moodle Versions
 ===============
 
-This plugin was tested in version 2.7 and 2.8 of Modle.
-If you get this plugin working on ther version, please
-let everybody know at:
+This plugin was tested in versions 2.7, 2.8, 2.9 (and minors) of Moodle.
+If you get this plugin working on ther version, please let everybody know at:
 
-    https://github.com/danielneis/moodle-mod_webrtcexperiments/issues
+    https://moodle.org/plugins/view/mod_webrtcexperiments
 
 Install
 =======
 
-* Put this code under "youmoodlerootdir/mod/webrtcexperiments"
+* Put this code under "youmoodlerootdir/mod/webrtcexperiments" (you may "git clone" or "composer require")
 * Visit your Moodle site as administrator to install plugin via web interface
 
 Signaling Server
@@ -76,7 +75,7 @@ If you don't want (or don't feel the need to, or cannot,
 for any reason) to run your own server, don't worry,
 this module will use the server below by default (under TLS)
 
-    wss://novoaeon.com.br:12034
+    wss://novoaeon.com.br:1234
 
 Note that there is no warranty for this server to be up and running.
 This server runs a websocket server over node.js that can be found at
@@ -96,7 +95,7 @@ to see a new feature implemented, please visit
 If you like the plugin and want to say hi publicly instead of
 sending an email, leave a comment at
 
-    https://moodle.org/plugins/view.php?plugin=mod_webrtcexperiments
+    https://moodle.org/plugins/view/mod_webrtcexperiments
 
 Donations
 =========
