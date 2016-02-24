@@ -28,14 +28,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['loadinglistmessage'] = 'Loading list. If this message does not disappear in a few seconds, there is no meetings happening. You can always start new one.';
 $string['modulename'] = 'WebRTC';
 $string['modulenameplural'] = 'WebRTCs';
 $string['modulename_help'] = 'Use the WebRTC module to interact using audio and video.';
-$string['webrtc'] = 'WebRTC';
 $string['pluginadministration'] = 'WebRTC Administration';
 $string['pluginname'] = 'WebRTC';
 $string['signalingserver'] = 'Signaling server';
 $string['signalingserver_help'] = "This is the address and port of signaling server. If you don't know what it means, leave as default.";
+$string['webrtc'] = 'WebRTC';
+$string['webrtcexperiments:view'] = 'Can view';
 $string['webrtcname'] = 'Name';
 $string['webrtcname_help'] = 'Name of the activity that will appear on course page.';
-$string['loadinglistmessage'] = 'Loading list. If this message does not disappear in a few seconds, there is no meetings happening. You can always start new one.';
