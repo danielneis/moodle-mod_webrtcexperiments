@@ -56,7 +56,7 @@ class mod_webrtcexperiments_mod_form extends moodleform_mod {
         $mform->addHelpButton('name', 'webrtcname', 'webrtcexperiments');
 
         // Adding the standard "intro" and "introformat" fields.
-        $this->add_intro_editor();
+         $this->standard_intro_elements();
 
         // Adding the rest of webrtc settings, spreeading all them into this fieldset
         // ... or adding more fieldsets ('header' elements) if needed for better logic.
