@@ -11,11 +11,16 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver, username) {
     var connection = new RTCMultiConnection();
     connection.firebase = false;
 
+    connection.enableFileSharing = true; // by default, it is "false".
+
     connection.session = {
         audio: true,
-        video: true
+        video: true,
+        data: true
     };
     var current_user = username;
+
+    connection.socketURL = signalingserver;
 
     connection.openSignalingChannel = function(config) {
 

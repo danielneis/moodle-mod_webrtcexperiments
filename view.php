@@ -128,7 +128,8 @@ echo '<section class="experiment">
           </table>
       </section>';
 
-$PAGE->requires->js('/mod/webrtcexperiments/getMediaElement.min.js');
+$PAGE->requires->js('/mod/webrtcexperiments/getMediaElement.js');
+$PAGE->requires->js('/mod/webrtcexperiments/socket.io.js');
 $PAGE->requires->js('/mod/webrtcexperiments/RTCMultiConnection.js');
 
 $PAGE->requires->js_init_call('M.mod_webrtcexperiments.init_meeting', array($webrtc->signalingserver, fullname($USER)));
