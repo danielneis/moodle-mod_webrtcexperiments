@@ -62,7 +62,7 @@ class mod_webrtcexperiments_mod_form extends moodleform_mod {
         // ... or adding more fieldsets ('header' elements) if needed for better logic.
 
         $mform->addElement('text', 'signalingserver', get_string('signalingserver', 'webrtcexperiments'), array('size' => '64'));
-        $mform->setDefault('signalingserver', 'wss://novoaeon.com.br:1234');
+        $mform->setDefault('signalingserver', 'https://novoaeon.com.br:1234');
         $mform->setType('signalingserver', PARAM_TEXT);
         $mform->addHelpButton('signalingserver', 'signalingserver', 'webrtcexperiments');
 
