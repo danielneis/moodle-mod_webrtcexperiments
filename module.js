@@ -50,7 +50,7 @@ M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver, username) {
         // removing trailing/leading whitespace
         this.value = this.value.replace(/^\s+|\s+$/g, '');
         if (!this.value.length) return;
-        connection.send('<p>' + username + ':' + "<br/>" + this.value, '</p>');
+        connection.send(this.value);
         appendDIV(this.value);
         this.value = '';
     };
