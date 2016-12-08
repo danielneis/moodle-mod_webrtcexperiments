@@ -5,7 +5,7 @@ Welcome to WebRTC Moodle Plugin!
 
 This project uses the code from
 
-    http://webrtc-experiment.com/
+    https://webrtc-experiment.com/
 
 to implement an activity module for Moodle to allow people to interact more freely.
 
@@ -75,7 +75,7 @@ If you don't want (or don't feel the need to, or cannot,
 for any reason) to run your own server, don't worry,
 this module will use the server below by default (under TLS)
 
-    wss://novoaeon.com.br:1234
+    https://novoaeon.com.br:1234
 
 Note that there is no warranty for this server to be up and running.
 This server runs a websocket server over node.js that can be found at
