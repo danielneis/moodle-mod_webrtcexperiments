@@ -1,3 +1,19 @@
 video {
-    width: 100%;
+    object-fit: fill;
+    width: 30%;
+}
+button,
+input,
+select {
+    font-weight: normal;
+    padding: 2px 4px;
+    text-decoration: none;
+    display: inline-block;
+    text-shadow: none;
+    font-size: 16px;
+    outline: none;
+}
+.make-center {
+    text-align: center;
+    padding: 5px 10px;
 }

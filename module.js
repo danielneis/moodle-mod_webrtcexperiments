@@ -1,260 +1,205 @@
-// Adapted to Moodle by Daniel Neis
-// Original work:
-// Muaz Khan     - www.MuazKhan.com
-// MIT License   - www.WebRTC-Experiment.com/licence
-// Documentation - www.RTCMultiConnection.org
-
 M.mod_webrtcexperiments = {};
 
 M.mod_webrtcexperiments.init_meeting = function(Y, signalingserver, username) {
 
+    // ......................................................
+    // .......................UI Code........................
+    // ......................................................
+    document.getElementById('open-room').onclick = function() {
+        disableInputButtons();
+        connection.open(document.getElementById('room-id').value, function() {
+            showRoomURL(connection.sessionid);
+        });
+    };
+    document.getElementById('join-room').onclick = function() {
+        disableInputButtons();
+        connection.join(document.getElementById('room-id').value);
+    };
+    document.getElementById('open-or-join-room').onclick = function() {
+        disableInputButtons();
+        connection.openOrJoin(document.getElementById('room-id').value, function(isRoomExists, roomid) {
+            if(!isRoomExists) {
+                showRoomURL(roomid);
+            }
+        });
+    };
+    document.getElementById('btn-leave-room').onclick = function() {
+        this.disabled = true;
+        if(connection.isInitiator) {
+            // use this method if you did NOT set "autoCloseEntireSession===true"
+            // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
+            connection.closeEntireSession(function() {
+                document.querySelector('h1').innerHTML = 'Entire session has been closed.';
+            });
+        }
+        else {
+            connection.leave();
+        }
+    };
+    // ......................................................
+    // ................FileSharing/TextChat Code.............
+    // ......................................................
+    document.getElementById('share-file').onclick = function() {
+        var fileSelector = new FileSelector();
+        fileSelector.selectSingleFile(function(file) {
+            connection.send(file);
+        });
+    };
+    document.getElementById('input-text-chat').onkeyup = function(e) {
+        if (e.keyCode != 13) return;
+        // removing trailing/leading whitespace
+        this.value = this.value.replace(/^\s+|\s+$/g, '');
+        if (!this.value.length) return;
+        connection.send('<p>' + username + ':' + "<br/>" + this.value, '</p>');
+        appendDIV(this.value);
+        this.value = '';
+    };
+    var chatContainer = document.querySelector('.chat-output');
+    function appendDIV(event) {
+        var div = document.createElement('div');
+        div.innerHTML = event.data || event;
+        chatContainer.insertBefore(div, chatContainer.firstChild);
+        div.tabIndex = 0;
+        div.focus();
+        document.getElementById('input-text-chat').focus();
+    }
+    // ......................................................
+    // ..................RTCMultiConnection Code.............
+    // ......................................................
     var connection = new RTCMultiConnection();
-    connection.firebase = false;
-
+    // by default, socket.io server is assumed to be deployed on your own URL
+    connection.socketURL = signalingserver;
+    // comment-out below line if you do not have your own socket.io server
+    // connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+    connection.socketMessageEvent = 'audio-video-file-chat-demo';
     connection.enableFileSharing = true; // by default, it is "false".
-
     connection.session = {
         audio: true,
         video: true,
         data: true
     };
-    var current_user = username;
-
-    connection.socketURL = signalingserver;
-
-    connection.openSignalingChannel = function(config) {
-
-        var channel = location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
-        var websocket = new WebSocket(signalingserver);
-        websocket.channel = channel;
-
-        websocket.onopen = function () {
-                websocket.push(JSON.stringify({
-                        open: true,
-                        channel: channel
-                }));
-                if (config.callback) {
-                    config.callback(websocket);
-                }
-
-        };
-        websocket.onmessage = function(event) {
-            config.onmessage(JSON.parse(event.data));
-        };
-        websocket.push = websocket.send;
-        websocket.send = function (data) {
-                if (websocket.readyState != 1) {
-                        return setTimeout(function() {
-                                websocket.send(data);
-                        }, 300);
-                }
-
-                websocket.push(JSON.stringify({
-                        data: data,
-                        channel: channel
-                }));
-        };
-        return websocket;
+    connection.sdpConstraints.mandatory = {
+        OfferToReceiveAudio: true,
+        OfferToReceiveVideo: true
     };
-
-
-    var roomsList = document.getElementById('rooms-list'), sessions = { };
-    connection.onNewSession = function(session) {
-        if (sessions[session.sessionid]) return;
-        sessions[session.sessionid] = session;
-
-        var tr = document.createElement('tr');
-        tr.innerHTML = '<td>There is an active session.</td>' +
-            '<td><button class="join">Join</button></td>';
-        roomsList.insertBefore(tr, roomsList.firstChild);
-
-        tr.querySelector('.join').setAttribute('data-sessionid', session.sessionid);
-        tr.querySelector('.join').onclick = function() {
-            this.disabled = true;
-
-            session = sessions[this.getAttribute('data-sessionid')];
-            if (!session) alert('No room to join.');
-
-            connection.join(session);
-        };
-    };
-
-    var videosContainer = document.getElementById('videos-container') || document.body;
-    connection.onstream = function(e) {
-        var buttons = ['mute-audio', 'mute-video', 'record-audio', 'record-video', 'full-screen', 'volume-slider', 'stop'];
-
-        if (connection.session.audio && !connection.session.video) {
-            buttons = ['mute-audio', 'full-screen', 'stop'];
-        }
-
-        var mediaElement = getMediaElement(e.mediaElement, {
-            width: (videosContainer.clientWidth / 2) - 50,
-            title: e.userid,
-            buttons: buttons,
-            onMuted: function(type) {
-                connection.streams[e.streamid].mute({
-                    audio: type == 'audio',
-                    video: type == 'video'
-                });
-            },
-            onUnMuted: function(type) {
-                connection.streams[e.streamid].unmute({
-                    audio: type == 'audio',
-                    video: type == 'video'
-                });
-            },
-            onRecordingStarted: function(type) {
-                // www.RTCMultiConnection.org/docs/startRecording/
-                connection.streams[e.streamid].startRecording({
-                    audio: type == 'audio',
-                    video: type == 'video'
-                });
-            },
-            onRecordingStopped: function(type) {
-                // www.RTCMultiConnection.org/docs/stopRecording/
-                connection.streams[e.streamid].stopRecording(function(blob) {
-                    if (blob.audio) connection.saveToDisk(blob.audio);
-                    else if (blob.video) connection.saveToDisk(blob.video);
-                    else connection.saveToDisk(blob);
-                }, type);
-            },
-            onStopped: function() {
-                connection.peers[e.userid].drop();
-            }
+    connection.videosContainer = document.getElementById('videos-container');
+    connection.onstream = function(event) {
+        var width = parseInt(connection.videosContainer.clientWidth / 2) - 20;
+        var mediaElement = getMediaElement(event.mediaElement, {
+            title: event.userid,
+            buttons: ['full-screen'],
+            width: width,
+            showOnMouseEnter: false
         });
-
-        videosContainer.insertBefore(mediaElement, videosContainer.firstChild);
-
-        if (e.type == 'local') {
-            mediaElement.media.muted = true;
-            mediaElement.media.volume = 0;
+        connection.videosContainer.appendChild(mediaElement);
+        setTimeout(function() {
+            mediaElement.media.play();
+        }, 5000);
+        mediaElement.id = event.streamid;
+    };
+    connection.onstreamended = function(event) {
+        var mediaElement = document.getElementById(event.streamid);
+        if(mediaElement) {
+            mediaElement.parentNode.removeChild(mediaElement);
         }
     };
-
-    connection.onstreamended = function(e) {
-        if (e.mediaElement.parentNode && e.mediaElement.parentNode.parentNode && e.mediaElement.parentNode.parentNode.parentNode) {
-            e.mediaElement.parentNode.parentNode.parentNode.removeChild(e.mediaElement.parentNode.parentNode);
-        }
-    };
-
-    var setupNewSession = document.getElementById('setup-new-session');
-
-    setupNewSession.onclick = function() {
-        setupNewSession.disabled = true;
-
-        var direction = document.getElementById('direction').value;
-        var _session = document.getElementById('session').value;
-        var splittedSession = _session.split('+');
-
-        var session = { };
-        for (var i = 0; i < splittedSession.length; i++) {
-            session[splittedSession[i]] = true;
-        }
-
-        var maxParticipantsAllowed = 256;
-
-        if (direction == 'one-to-one') maxParticipantsAllowed = 1;
-        if (direction == 'one-to-many') session.broadcast = true;
-        if (direction == 'one-way') session.oneway = true;
-
-        connection.extra = {
-            'session-name': 'Anonymous'
-        };
-
-        connection.session = session;
-        connection.maxParticipantsAllowed = maxParticipantsAllowed;
-
-        connection.sessionid = 'Anonymous';
-        connection.open();
-    };
-
-    connection.onmessage = function(e) {
-        appendDIV(e.data);
-
-        console.debug(e.userid, 'posted', e.data);
-        console.log('latency:', e.latency, 'ms');
-    };
-
-    connection.onclose = function(e) {
-        appendDIV('Data connection is closed between you and ' + e.userid);
-    };
-
-    connection.onleave = function(e) {
-        appendDIV(e.userid + ' left the session.');
-    };
-
-    // on data connection gets open
+    connection.onmessage = appendDIV;
+    connection.filesContainer = document.getElementById('file-container');
     connection.onopen = function() {
-        if (document.getElementById('chat-input')) document.getElementById('chat-input').disabled = false;
-        if (document.getElementById('file')) document.getElementById('file').disabled = false;
-        if (document.getElementById('open-new-session')) document.getElementById('open-new-session').disabled = true;
+        document.getElementById('share-file').disabled = false;
+        document.getElementById('input-text-chat').disabled = false;
+        document.getElementById('btn-leave-room').disabled = false;
+        document.querySelector('h1').innerHTML = 'You are connected with: ' + connection.getAllParticipants().join(', ');
     };
-
-    var progressHelper = { };
-
-    connection.autoSaveToDisk = false;
-
-    connection.onFileProgress = function(chunk) {
-        var helper = progressHelper[chunk.uuid];
-        helper.progress.value = chunk.currentPosition || chunk.maxChunks || helper.progress.max;
-        updateLabel(helper.progress, helper.label);
-    };
-    connection.onFileStart = function(file) {
-        var div = document.createElement('div');
-        div.title = file.name;
-        div.innerHTML = '<label>0%</label> <progress></progress>';
-        appendDIV(div, fileProgress);
-        progressHelper[file.uuid] = {
-            div: div,
-            progress: div.querySelector('progress'),
-            label: div.querySelector('label')
-        };
-        progressHelper[file.uuid].progress.max = file.maxChunks;
-    };
-
-    connection.onFileEnd = function(file) {
-        progressHelper[file.uuid].div.innerHTML = '<a href="' + file.url + '" target="_blank" download="' + file.name + '">' + file.name + '</a>';
-    };
-
-    function updateLabel(progress, label) {
-        if (progress.position == -1) return;
-        var position = +progress.position.toFixed(2).split('.')[1] || 100;
-        label.innerHTML = position + '%';
-    }
-
-    function appendDIV(div, parent) {
-        if (typeof div === 'string') {
-            var content = div;
-            div = document.createElement('div');
-            div.innerHTML = content;
+    connection.onclose = function() {
+        if(connection.getAllParticipants().length) {
+            document.querySelector('h1').innerHTML = 'You are still connected with: ' + connection.getAllParticipants().join(', ');
         }
-
-        if (!parent) chatOutput.insertBefore(div, chatOutput.firstChild);
-        else fileProgress.insertBefore(div, fileProgress.firstChild);
-
-        div.tabIndex = 0;
-        div.focus();
+        else {
+            document.querySelector('h1').innerHTML = 'Seems session has been closed or all participants left.';
+        }
+    };
+    connection.onEntireSessionClosed = function(event) {
+        document.getElementById('share-file').disabled = true;
+        document.getElementById('input-text-chat').disabled = true;
+        document.getElementById('btn-leave-room').disabled = true;
+        document.getElementById('open-or-join-room').disabled = false;
+        document.getElementById('open-room').disabled = false;
+        document.getElementById('join-room').disabled = false;
+        document.getElementById('room-id').disabled = false;
+        connection.attachStreams.forEach(function(stream) {
+            stream.stop();
+        });
+        // don't display alert for moderator
+        if(connection.userid === event.userid) return;
+        document.querySelector('h1').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
+    };
+    connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
+        // seems room is already opened
+        connection.join(useridAlreadyTaken);
+    };
+    function disableInputButtons() {
+        document.getElementById('open-or-join-room').disabled = true;
+        document.getElementById('open-room').disabled = true;
+        document.getElementById('join-room').disabled = true;
+        document.getElementById('room-id').disabled = true;
     }
-
-    var chatOutput = document.getElementById('chat-output');
-    var fileProgress = document.getElementById('file-progress');
-
-    document.getElementById('file').onchange = function() {
-        connection.send(this.files[0]);
+    // ......................................................
+    // ......................Handling Room-ID................
+    // ......................................................
+    function showRoomURL(roomid) {
+        var roomHashURL = '#' + roomid;
+        var roomQueryStringURL = '?roomid=' + roomid;
+        var html = '<h2>Unique URL for your room:</h2><br>';
+        html += 'Hash URL: <a href="' + roomHashURL + '" target="_blank">' + roomHashURL + '</a>';
+        html += '<br>';
+        html += 'QueryString URL: <a href="' + roomQueryStringURL + '" target="_blank">' + roomQueryStringURL + '</a>';
+        var roomURLsDiv = document.getElementById('room-urls');
+        roomURLsDiv.innerHTML = html;
+        roomURLsDiv.style.display = 'block';
+    }
+    (function() {
+        var params = {},
+            r = /([^&=]+)=?([^&]*)/g;
+        function d(s) {
+            return decodeURIComponent(s.replace(/\+/g, ' '));
+        }
+        var match, search = window.location.search;
+        while (match = r.exec(search.substring(1)))
+            params[d(match[1])] = d(match[2]);
+        window.params = params;
+    })();
+    var roomid = '';
+    if (localStorage.getItem(connection.socketMessageEvent)) {
+        roomid = localStorage.getItem(connection.socketMessageEvent);
+    } else {
+        roomid = connection.token();
+    }
+    document.getElementById('room-id').value = roomid;
+    document.getElementById('room-id').onkeyup = function() {
+        localStorage.setItem(connection.socketMessageEvent, this.value);
     };
-
-    var chatInput = document.getElementById('chat-input');
-    chatInput.onkeypress = function(e) {
-        if (e.keyCode !== 13 || !this.value) return;
-
-        var text = current_user + ':' + this.value;
-        appendDIV(text);
-
-        // sending text message
-        connection.send(text);
-
-        this.value = '';
-    };
-
-    connection.connect();
+    var hashString = location.hash.replace('#', '');
+    if(hashString.length && hashString.indexOf('comment-') == 0) {
+      hashString = '';
+    }
+    var roomid = params.roomid;
+    if(!roomid && hashString.length) {
+        roomid = hashString;
+    }
+    if(roomid && roomid.length) {
+        document.getElementById('room-id').value = roomid;
+        localStorage.setItem(connection.socketMessageEvent, roomid);
+        // auto-join-room
+        (function reCheckRoomPresence() {
+            connection.checkPresence(roomid, function(isRoomExists) {
+                if(isRoomExists) {
+                    connection.join(roomid);
+                    return;
+                }
+                setTimeout(reCheckRoomPresence, 5000);
+            });
+        })();
+        disableInputButtons();
+    }
 }

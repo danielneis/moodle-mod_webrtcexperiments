@@ -28,6 +28,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['join'] = 'Join';
 $string['loadinglistmessage'] = 'Loading list. If this message does not disappear in a few seconds, there is no meetings happening. You can always start new one.';
 $string['modulename'] = 'WebRTC';
 $string['modulenameplural'] = 'WebRTCs';

@@ -65,72 +65,42 @@ $PAGE->set_context($context);
 // Output starts here.
 echo $OUTPUT->header();
 
+
 // Conditions to show the intro can change to look for own settings or whatever.
 if ($webrtc->intro) {
     echo $OUTPUT->box(format_module_intro('webrtcexperiments', $webrtc, $cm->id), 'generalbox mod_introbox', 'ebrtcintro');
 }
+?>
+<section class="experiment">
+    <div class="make-center">
+        <input type="text" id="room-id" value="<?php echo $id; ?>">
+        <button id="open-room">Open Room</button>
+        <button id="join-room">Join Room</button>
+        <button id="open-or-join-room"><?php echo get_string('join', 'mod_webrtcexperiments') ?></button>
 
-echo '<section class="experiment">
-          <h2 class="header" id="feedback">
-              Select SessionType and Direction-of-Flow!
-          </h2>
-          
-          <section>
-              <select id="session" title="Session">
-                  <option>audio+video+data+screen</option>
-                  <option selected>audio+video+data</option>
-                  <option>audio+video+screen</option>
-                  <option>audio+data+screen</option>
-                  <option>audio+video</option>
-                  <option>audio+screen</option>
-                  <option>video+screen</option>
-                  <option>data+screen</option>
-                  <option>audio+data</option>
-                  <option>video+data</option>
-                  <option>audio</option>
-                  <option>video</option>
-                  <option>data</option>
-                  <option>screen</option>
-              </select>
-              <select id="direction" title="Direction">
-                  <option>many-to-many</option>
-                  <option>one-to-one</option>
-                  <option>one-to-many</option>
-                  <option>one-way</option>
-              </select>
-              <button id="setup-new-session" class="setup">New Session</button>
-          </section>
-          
-          <!-- list of all available broadcasting rooms -->
-          <table style="width: 100%;" id="rooms-list"></table>
-          
-          <!-- local/remote videos container -->
-          <div id="videos-container"></div>
-      </section>
-                  
-      <section class="experiment data-box">
-          <h2 class="header" style="border-bottom: 0;">WebRTC DataChannel</h2>
-          <table style="width: 100%;">
-              <tr>
-                  <td>
-                      <h2 style="display: block; font-size: 1em; text-align: center;">Text Chat</h2>
+        <br><br>
+        <input type="text" id="input-text-chat" placeholder="Enter Text Chat" disabled>
+        <button id="share-file" disabled>Share File</button>
+        <br><br>
+        <button id="btn-leave-room" disabled>Leave /or close the room</button>
 
-                      <div id="chat-output"></div>
-                      <input type="text" id="chat-input" style="font-size: 1.2em;" placeholder="chat message" disabled>
-                  </td>
-                  <td style="background: white;">
-                      <h2 style="display: block; font-size: 1em; text-align: center;">Share Files</h2>
-                      <input type="file" id="file" disabled>
+        <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
+    </div>
 
-                      <div id="file-progress"></div>
-                  </td>
-              </tr>
-          </table>
-      </section>';
+    <div id="chat-container">
+        <div id="file-container"></div>
+        <div class="chat-output"></div>
+    </div>
 
-$PAGE->requires->js('/mod/webrtcexperiments/getMediaElement.js');
-$PAGE->requires->js('/mod/webrtcexperiments/socket.io.js');
-$PAGE->requires->js('/mod/webrtcexperiments/RTCMultiConnection.js');
+    <div id="videos-container"></div>
+</section>
+<?php
+
+$PAGE->requires->js(new moodle_url("https://cdn.webrtc-experiment.com:443/RTCMultiConnection.js"));
+$PAGE->requires->js(new moodle_url("https://cdn.webrtc-experiment.com:443/rmc3.fbr.min.js"));
+$PAGE->requires->js(new moodle_url("https://cdn.webrtc-experiment.com:443/getMediaElement.js"));
+$PAGE->requires->js(new moodle_url("https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"));
+$PAGE->requires->js(new moodle_url("https://cdn.webrtc-experiment.com/getMediaElement.js"));
 
 $PAGE->requires->js_init_call('M.mod_webrtcexperiments.init_meeting', array($webrtc->signalingserver, fullname($USER)));
 
