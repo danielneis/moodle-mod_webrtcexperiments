@@ -29,16 +29,12 @@ Features
 --------
 
 * Video and audio chat
- * With mute/unmute controls for audio and video
 * Text chat
-* File sharing
- * It is P2P file sharing, not integrated with Moodle Files API
+* File sharing (it is P2P file sharing, not integrated with Moodle Files API)
 
-It is basically a copy of the all-in-one demo:
+It is basically a copy of the Audio+Video+TextChat+FileSharing using RTCMultiConnection demo:
 
-    https://www.webrtc-experiment.com/RTCMultiConnection/all-in-one.html
-
-But WebRTC is much more than that!
+    https://rtcmulticonnection.herokuapp.com/demos/Audio+Video+TextChat+FileSharing.html
 
 Future features
 ---------------
