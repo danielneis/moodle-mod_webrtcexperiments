@@ -26,16 +26,13 @@ See more about it on the "Signaling server" section of this
 document.
 
 Features
-========
+--------
 
 * Video and audio chat
  * With mute/unmute controls for audio and video
-* Record video and audio from any peer (or local stream) and save to your computer
 * Text chat
 * File sharing
  * It is P2P file sharing, not integrated with Moodle Files API
-* The icon was downloaded from pixabay and is licensed under CC0 Public Domain
- * http://pixabay.com/en/connection-network-router-cable-27386/
 
 It is basically a copy of the all-in-one demo:
 
@@ -44,30 +41,33 @@ It is basically a copy of the all-in-one demo:
 But WebRTC is much more than that!
 
 Future features
-===============
+---------------
 
 * Screensharing
+* Record video and audio from any peer (or local stream) and save to your computer
 * Colaborative canvas
 
-Moodle Versions
-===============
-
-This plugin was tested in versions 2.7, 2.8, 2.9 (and minors) of Moodle.
-If you get this plugin working on ther version, please let everybody know at:
-
-    https://moodle.org/plugins/view/mod_webrtcexperiments
-
 Install
-=======
+-------
 
 * Put this code under "youmoodlerootdir/mod/webrtcexperiments" (you may "git clone" or "composer require")
 * Visit your Moodle site as administrator to install plugin via web interface
 
-Signaling Server
-================
+Usage
+-----
 
-This module needs a signaling server.
-To learn more about Signaling, please visit:
+To use the module, the first user must use the "Open Room"  button. The browser should then ask you to share mic and cam.
+
+Then it should give the id of the room to the other users.
+
+The other users should use the code given by the first user, fill the form with it, and use the "Join room" button. The browser should then ask you to share mic and cam.
+
+When the second user enters the room, the chat and share files will be enabled.
+
+Signaling Server
+----------------
+
+This module needs a signaling server. To learn more about Signaling, please visit:
 
     https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Signaling.md
 
@@ -83,7 +83,7 @@ This server runs a websocket server over node.js that can be found at
     https://github.com/muaz-khan/WebRTC-Experiment/tree/master/websocket-over-nodejs
 
 Contact
-=======
+-------
 
 Feel free to contact me at danielneis@gmail.com .
 
@@ -96,8 +96,15 @@ If you like the plugin and want to say hi publicly instead of
 sending an email, leave a comment at
 
     https://moodle.org/plugins/view/mod_webrtcexperiments
+    
+Icon
+----
+
+The icon was downloaded from pixabay and is licensed under CC0 Public Domain
+
+http://pixabay.com/en/connection-network-router-cable-27386/
 
 Donations
-=========
+---------
 
 [This development is a not for profit work. If  you like you can help keep it going by donating via paypal =)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=danielneis%40gmail%2ecom&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
