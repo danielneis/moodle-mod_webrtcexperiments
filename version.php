@@ -27,7 +27,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016042200;      // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2017010400;      // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014051200;      // Requires this Moodle version.
 $plugin->cron      = 0;               // Period for cron to check this plugin (secs).
 $plugin->component = 'mod_webrtcexperiments'; // To check on upgrade, that plugin sits in correct place.
