@@ -1,7 +1,7 @@
 {
     "name": "danielneis/moodle-mod_webrtcexperiments",
     "description": "This is a Moodle plugin for users interact with audio and video using WebRTC",
-    "license": "GPLv3",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Daniel Neis Araujo",
